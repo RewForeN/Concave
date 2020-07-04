@@ -1,28 +1,40 @@
 #pragma once
 
 #include <Windows.h>
+#include "PixelBuffer.h"
+
 #include <string>
+#include <memory>
 
-class Window {
+namespace Concave {
 
-public:
-	Window();
-	~Window() = default;
+	class Window {
 
-	void OnUpdate();
+	public:
+		Window(int width, int height, std::string title = "My Game");
+		~Window();
 
-	unsigned int GetWidth();
-	unsigned int GetHeight();
+		void OnUpdate();
 
-private:
-	void Init();
-	void Shutdown();
+		void SetTitle(LPCWSTR title);
 
-private:
-	HANDLE m_windowHandle;
+		void Clear(short color = 0x0000);
+		void Draw(int x, int y, short color = 0x000F);
 
-	std::string title;
-	unsigned int width;
-	unsigned int height;
+		inline void* GetNativeWindow() { return &m_ConsoleHandle; }
+		inline int GetWidth() { return m_WindowWidth; }
+		inline int GetHeight() { return m_WindowHeight; }
+		inline CHAR_INFO& GetPixelBuffer() { return *m_PixelBuffer; }
 
-};
+	private:
+		HANDLE m_ConsoleHandle;
+
+		int m_WindowWidth;
+		int m_WindowHeight;
+		SMALL_RECT m_WriteRegion;
+
+		CHAR_INFO* m_PixelBuffer;
+
+	};
+
+}

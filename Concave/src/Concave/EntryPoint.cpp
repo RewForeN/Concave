@@ -1,4 +1,5 @@
 
+#include "pch.h"
 #include "Concave.h"
 
 extern Concave::Application* Concave::CreateApplication();
