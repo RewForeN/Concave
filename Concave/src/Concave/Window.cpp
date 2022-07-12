@@ -18,16 +18,19 @@ CONSOLE_FONT_INFOEX CreateConsoleFont(int w, int h) {
 
 }
 
-Concave::Window::Window(int width, int height, std::string title) {
+Concave::Window::Window(short width, short height, std::string title) {
 
 	m_WindowWidth = width;
 	m_WindowHeight = height;
-	m_WriteRegion = {0, 0, (short)width, (short)height};
-
+	m_WriteRegion = {0, 0, width, height};
 	m_ConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	COORD c = {width + 1, height + 1};
+
 	SetConsoleActiveScreenBuffer(m_ConsoleHandle);
 	SetConsoleWindowInfo(m_ConsoleHandle, TRUE, &m_WriteRegion);
-	SetConsoleScreenBufferSize(m_ConsoleHandle, {(short)width + 1, (short)height + 1});
+	SetConsoleScreenBufferSize(m_ConsoleHandle, c);
+	//SetConsoleScreenBufferSize(m_ConsoleHandle, {width + 1, height + 1});
 	SetCurrentConsoleFontEx(m_ConsoleHandle, false, &CreateConsoleFont(15, 15));
 
 	m_PixelBuffer = new CHAR_INFO[width * height];

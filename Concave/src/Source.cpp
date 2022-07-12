@@ -78,7 +78,7 @@ protected:
 	void Move(int x, int y) {
 
 		// Move all parts of snake accordingly
-		for (int i = size-1; i >= 0; i--) {
+		for (int i = size - 1; i >= 0; i--) {
 			if (i != 0) {
 				snake[i].x = snake[i - 1].x;
 				snake[i].y = snake[i - 1].y;

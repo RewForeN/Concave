@@ -11,7 +11,7 @@ namespace Concave {
 	class Window {
 
 	public:
-		Window(int width, int height, std::string title = "My Game");
+		Window(short width, short height, std::string title = "My Game");
 		~Window();
 
 		void OnUpdate();
